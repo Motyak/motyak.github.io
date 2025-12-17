@@ -1,1 +1,40 @@
-<p>Welcome to Monlang!</p>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+<video hidden width="1600" height="900" controls>
+    <source src="900p.mp4" type="video/mp4">
+</video>
+
+<!-- <video hidden width="1920" height="1080" controls>
+    <source src="900p.mp4" type="video/mp4">
+</video> -->
+
+<!-- <video hidden width="1920" height="1080" controls>
+    <source src="1080p.mp4" type="video/mp4">
+</video> -->
+
+<!-- <video hidden width="1600" height="900" controls>
+    <source src="1080p.mp4" type="video/mp4">
+</video> -->
+
+<script>
+    $(document).ready(() => {
+        /* perpetually add event listener for device pixel ratio */
+        {
+            let removeOld = null
+            const bypassDevicePixelRatio = () => {
+                removeOld?.()
+                let media = matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+                media.addEventListener("change", bypassDevicePixelRatio)
+                removeOld = () => media.removeEventListener("change", bypassDevicePixelRatio)
+
+                $("video").each((_index, video) => {
+                    $(video)
+                        .show()
+                        .width(`${$(video).attr("width") / window.devicePixelRatio}`)
+                        .height(`${$(video).attr("height") / window.devicePixelRatio}`)
+                })
+            }
+            bypassDevicePixelRatio()
+        }
+    })
+</script>
