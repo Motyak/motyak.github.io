@@ -1,20 +1,25 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-<video hidden width="1600" height="900" controls>
-    <source src="900p.mp4" type="video/mp4">
-</video>
+<style>
+    video {
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        margin: 20px;
+    }
+</style>
 
-<!-- <video hidden width="1920" height="1080" controls>
-    <source src="900p.mp4" type="video/mp4">
-</video> -->
+<div class="flex h-screen justify-end items-center">
+    <video hidden width="1600" height="900" autoplay loop muted>
+        <source src="900p_v2.mp4" type="video/mp4">
+    </video>
+</div>
 
-<!-- <video hidden width="1920" height="1080" controls>
-    <source src="1080p.mp4" type="video/mp4">
-</video> -->
-
-<!-- <video hidden width="1600" height="900" controls>
-    <source src="1080p.mp4" type="video/mp4">
-</video> -->
+<div class="flex h-screen justify-center items-center">
+    <video hidden width="1920" height="1080" autoplay loop muted>
+        <source src="1080p_v2.mp4" type="video/mp4">
+    </video>
+</div>
 
 <script>
     $(document).ready(() => {
