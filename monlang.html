@@ -9,13 +9,29 @@
     }
 </style>
 
-<div class="flex h-screen justify-end items-center">
+<div class="video_container flex h-screen justify-center items-center">
+    <ul hidden class="ml-4 leading-tight">
+        <li>
+            <h1 class="font-bold text-3xl cursor-pointer">Mac and iPhone</h1>
+            <p class="mt-1 max-w-xs">Answer calls or messages from your iPhone directly on your Mac. See and control what's on your iPhone from your Mac with iPhone Mirroring. Use Universal Clipboard to copy images, video, or text from your iPhone, then paste into another app on your nearby Mac. And thanks to iCloud, you can access your files from either your iPhone or your Mac. And so much more.</p>
+        </li>
+        <li>
+            <hr class="border-t my-4" />
+            <h1 class="text-3xl cursor-pointer">Mac and iPad</h1>
+            <p hidden class="mt-1 max-w-xs">Sketch on your iPad and have it appear instantly on your Mac. Or use your iPad as a second display, so you can work on one screen while you reference the other. You can even start something on your iPad — like a presentation or an email — and continue it on your Mac.</p>
+        </li>
+        <li>
+            <hr class="border-t my-4" />
+            <h1 class="text-3xl cursor-pointer">Mac and Apple Watch</h1>
+            <p hidden class="mt-1 max-w-xs">Automatically log in to your Mac when you're wearing your Apple Watch with Auto Unlock. No password typing required.</p>
+        </li>
+    </ul>
     <video hidden width="1600" height="900" autoplay loop muted>
         <source src="900p_v2.mp4" type="video/mp4">
     </video>
 </div>
 
-<div class="flex h-screen justify-center items-center">
+<div class="video_container flex h-screen justify-center items-center">
     <video hidden width="1920" height="1080" autoplay loop muted>
         <source src="1080p_v2.mp4" type="video/mp4">
     </video>
@@ -23,6 +39,28 @@
 
 <script>
     $(document).ready(() => {
+
+        $("ul").each((_index, ul) => {
+            $(ul).on("click", "h1", event => {
+                let h1 = event.currentTarget
+
+                /* early exit if already expanded */
+                if ($(h1).hasClass("font-bold")) {
+                    return // nothing to do
+                }
+
+                /* first, we collapse all paragraphs */
+                $(ul).find("h1").each((_index, h1) => $(h1).removeClass("font-bold"))
+                $(ul).find("p").each((_index, p) => $(p).hide())
+
+                /* then, we expand the one clicked */
+                $(h1)
+                    .addClass("font-bold")
+                    .next() /* <p> */
+                    .show()
+            })
+        })
+
         /* perpetually add event listener for device pixel ratio */
         {
             let removeOld = null
@@ -32,11 +70,25 @@
                 media.addEventListener("change", bypassDevicePixelRatio)
                 removeOld = () => media.removeEventListener("change", bypassDevicePixelRatio)
 
-                $("video").each((_index, video) => {
-                    $(video)
+                $(".video_container").each((_index, video_container) => {
+                    ul = $(video_container).find("ul")[0]
+                    video = $(video_container).find("video")[0]
+
+                    $(ul)
+                        ?.css({
+                            "min-height": `${$(video).attr("height") / window.devicePixelRatio}`,
+                            "max-height": `${$(video).attr("height") / window.devicePixelRatio}`,                            
+                        })
                         .show()
-                        .width(`${$(video).attr("width") / window.devicePixelRatio}`)
-                        .height(`${$(video).attr("height") / window.devicePixelRatio}`)
+
+                    $(video)
+                        .css({
+                            "min-width": `${$(video).attr("width") / window.devicePixelRatio}`,
+                            "max-width": `${$(video).attr("width") / window.devicePixelRatio}`,
+                            "min-height": `${$(video).attr("height") / window.devicePixelRatio}`,
+                            "max-height": `${$(video).attr("height") / window.devicePixelRatio}`,
+                        })
+                        .show()
                 })
             }
             bypassDevicePixelRatio()
