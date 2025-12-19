@@ -13,17 +13,17 @@
     <div class="flex items-center">
         <ul class="leading-tight">
             <li>
-                <h1 class="font-bold text-3xl cursor-pointer">Mac and iPhone</h1>
+                <h1 class="font-bold text-4xl cursor-pointer">Mac and iPhone</h1>
                 <p class="mt-1 max-w-xs">Answer calls or messages from your iPhone directly on your Mac. See and control what's on your iPhone from your Mac with iPhone Mirroring. Use Universal Clipboard to copy images, video, or text from your iPhone, then paste into another app on your nearby Mac. And thanks to iCloud, you can access your files from either your iPhone or your Mac. And so much more.</p>
             </li>
             <li>
                 <hr class="border-t my-4" />
-                <h1 class="text-3xl cursor-pointer">Mac and iPad</h1>
+                <h1 class="text-4xl cursor-pointer">Mac and iPad</h1>
                 <p hidden class="mt-1 max-w-xs">Sketch on your iPad and have it appear instantly on your Mac. Or use your iPad as a second display, so you can work on one screen while you reference the other. You can even start something on your iPad — like a presentation or an email — and continue it on your Mac.</p>
             </li>
             <li>
                 <hr class="border-t my-4" />
-                <h1 class="text-3xl cursor-pointer">Mac and Apple Watch</h1>
+                <h1 class="text-4xl cursor-pointer">Mac and Apple Watch</h1>
                 <p hidden class="mt-1 max-w-xs">Automatically log in to your Mac when you're wearing your Apple Watch with Auto Unlock. No password typing required.</p>
             </li>
         </ul>
@@ -53,13 +53,13 @@
 
                 /* first, we collapse all paragraphs */
                 $(ul).find("h1").each((_index, h1) => $(h1).removeClass("font-bold"))
-                $(ul).find("p").each((_index, p) => $(p).hide())
+                $(ul).find("p").each((_index, p) => $(p).animate({height: "hide", opacity: "hide"}, 300))
 
                 /* then, we expand the one clicked */
                 $(h1)
                     .addClass("font-bold")
                     .next() /* <p> */
-                    .show()
+                    .animate({height: "show", opacity: "show"}, 300)
             })
         })
 
