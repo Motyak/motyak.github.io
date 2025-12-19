@@ -10,27 +10,36 @@
 </style>
 
 <!-- Landing view -->
-<div class="flex h-screen justify-center items-center">
-    <ul class="leading-tight">
-        <li>
-            <h1 class="font-bold text-4xl select-none cursor-pointer">Mac and iPhone</h1>
-            <p class="mt-1 max-w-xs">Answer calls or messages from your iPhone directly on your Mac. See and control what's on your iPhone from your Mac with iPhone Mirroring. Use Universal Clipboard to copy images, video, or text from your iPhone, then paste into another app on your nearby Mac. And thanks to iCloud, you can access your files from either your iPhone or your Mac. And so much more.</p>
-        </li>
-        <li>
-            <hr class="border-t my-4" />
-            <h1 class="text-4xl select-none cursor-pointer">Mac and iPad</h1>
-            <p hidden class="mt-1 max-w-xs">Sketch on your iPad and have it appear instantly on your Mac. Or use your iPad as a second display, so you can work on one screen while you reference the other. You can even start something on your iPad — like a presentation or an email — and continue it on your Mac.</p>
-        </li>
-        <li>
-            <hr class="border-t my-4" />
-            <h1 class="text-4xl select-none cursor-pointer">Mac and Apple Watch</h1>
-            <p hidden class="mt-1 max-w-xs">Automatically log in to your Mac when you're wearing your Apple Watch with Auto Unlock. No password typing required.</p>
-        </li>
-    </ul>
-    <video hidden width="1600" height="900" autoplay loop muted>
-        <source src="900p_v2.mp4" type="video/mp4">
-    </video>
+<div class="flex flex-col h-screen">
+    <div class="flex flex-grow justify-center items-center">
+        <ul class="leading-tight">
+            <li>
+                <h1 class="font-bold text-4xl select-none cursor-pointer">Mac and iPhone</h1>
+                <p class="mt-1 max-w-xs">Answer calls or messages from your iPhone directly on your Mac. See and control what's on your iPhone from your Mac with iPhone Mirroring. Use Universal Clipboard to copy images, video, or text from your iPhone, then paste into another app on your nearby Mac. And thanks to iCloud, you can access your files from either your iPhone or your Mac. And so much more.</p>
+            </li>
+            <li>
+                <hr class="border-t my-4" />
+                <h1 class="text-4xl select-none cursor-pointer">Mac and iPad</h1>
+                <p hidden class="mt-1 max-w-xs">Sketch on your iPad and have it appear instantly on your Mac. Or use your iPad as a second display, so you can work on one screen while you reference the other. You can even start something on your iPad — like a presentation or an email — and continue it on your Mac.</p>
+            </li>
+            <li>
+                <hr class="border-t my-4" />
+                <h1 class="text-4xl select-none cursor-pointer">Mac and Apple Watch</h1>
+                <p hidden class="mt-1 max-w-xs">Automatically log in to your Mac when you're wearing your Apple Watch with Auto Unlock. No password typing required.</p>
+            </li>
+        </ul>
+        <video hidden width="1600" height="900" autoplay loop muted>
+            <source src="900p_v2.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div id="downarrow" class="flex justify-center absolute bottom-0 w-full cursor-pointer hover:bg-gray-50">
+        <svg class="my-2"
+        fill="#c0bfbc" height="60px" width="60px" viewBox="0 0 493.46 493.46">
+            <path d="M246.732,0C110.684,0,0.004,110.684,0.004,246.744c0,136.04,110.68,246.716,246.728,246.716 s246.724-110.676,246.724-246.716C493.456,110.684,382.78,0,246.732,0z M361.08,220.372L250.936,330.516 c-0.996,0.992-2.328,1.412-3.764,1.412l-0.124,3.744l0.052-4.108h-0.012h-0.156c-1.44,0-2.772-0.304-3.768-1.296L132.848,220.08 c-2.08-2.076-2.08-5.4,0-7.492l8.972-8.948c2.004-1.988,5.556-1.976,7.56,0.016l94.936,94.956c1.444,1.448,4.016,1.448,5.46,0 l94.768-94.776c2.012-2.012,5.56-2.012,7.576,0l8.96,8.98C363.164,214.896,363.164,218.284,361.08,220.372z" />
+        </svg>
+    </div>
 </div>
+
 
 <!-- Bottom view -->
 <div class="flex h-screen justify-center items-center">
@@ -61,6 +70,12 @@
                     .next() /* <p> */
                     .animate({height: "show", opacity: "show"}, 300)
             })
+        })
+
+        $("#downarrow").click(() => {
+            $("body").animate({
+                scrollTop: $(window).height()
+            }, 1000)
         })
 
         /* perpetually add event listener for device pixel ratio */
