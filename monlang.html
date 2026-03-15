@@ -9,13 +9,15 @@
     }
 </style>
 
+<title>Monlang</title>
+
 <!-- Landing view -->
-<div class="flex flex-col h-screen">
-    <div class="absolute top-0 mt-4 ml-4">
-        <a href="monlang.html">
-            <h1 class="text-7xl select-none">{Monlang}</h1>
-        </a>
-        <div class="flex justify-center">
+<div id="landing_view" class="flex flex-col 2xl:h-screen">
+    <div class="2xl:absolute 2xl:top-0 2xl:mt-4 2xl:ml-4">
+        <div class="flex flex-col justify-center items-center">
+            <a href="/monlang">
+                <h1 class="text-7xl select-none">{Monlang}</h1>
+            </a>
             <a href="https://github.com/Motyak/ml-tools" target="_blank">
                 <svg class="cursor-pointer fill-current hover:text-green-600"
                 fill="#000000" height="30px" width="30px" viewBox="0 0 20 20">
@@ -24,28 +26,36 @@
             </a>
         </div>
     </div>
+
     <div class="flex flex-grow justify-center items-center">
-        <ul class="leading-tight">
+        <ul class="flex-shrink-0 leading-tight 2xl:block hidden">
             <li>
-                <h1 class="font-bold text-4xl select-none cursor-pointer">Mac and iPhone</h1>
-                <p class="mt-1 max-w-xs">Answer calls or messages from your iPhone directly on your Mac. See and control what's on your iPhone from your Mac with iPhone Mirroring. Use Universal Clipboard to copy images, video, or text from your iPhone, then paste into another app on your nearby Mac. And thanks to iCloud, you can access your files from either your iPhone or your Mac. And so much more.</p>
+                <h1 name="0" class="font-bold text-4xl select-none cursor-pointer">Playground</h1>
+                <p class="mt-1 max-w-xs">Experiment fast, with instantaneous feedback on-demand.</p>
             </li>
             <li>
                 <hr class="border-t my-4" />
-                <h1 class="text-4xl select-none cursor-pointer">Mac and iPad</h1>
-                <p hidden class="mt-1 max-w-xs">Sketch on your iPad and have it appear instantly on your Mac. Or use your iPad as a second display, so you can work on one screen while you reference the other. You can even start something on your iPad — like a presentation or an email — and continue it on your Mac.</p>
+                <h1 name="1" class="text-4xl select-none cursor-pointer">Syntax Tree</h1>
+                <p hidden class="mt-1 max-w-xs">Explore how your code gets parsed, with token highlighting.</p>
             </li>
             <li>
                 <hr class="border-t my-4" />
-                <h1 class="text-4xl select-none cursor-pointer">Mac and Apple Watch</h1>
-                <p hidden class="mt-1 max-w-xs">Automatically log in to your Mac when you're wearing your Apple Watch with Auto Unlock. No password typing required.</p>
+                <h1 name="2" class="text-4xl select-none cursor-pointer">Error Reporting</h1>
+                <p hidden class="mt-1 max-w-xs">Full error context is provided, from parsing to stacktrace.</p>
             </li>
         </ul>
-        <video hidden width="1600" height="900" autoplay loop muted>
-            <source src="900p_v2.mp4" type="video/mp4">
+        <video name="0" width="1600" height="900" autoplay muted playsinline poster="playground.jpg" preload="auto">
+            <source src="playground.mp4" type="video/mp4">
+        </video>
+        <video name="1" hidden width="1600" height="900" muted playsinline poster="syntaxtree.jpg" preload="auto">
+            <source src="syntaxtree.mp4" type="video/mp4">
+        </video>
+        <video name="2" hidden width="1600" height="900" muted playsinline poster="ERRreporting.jpg" preload="auto">
+            <source src="ERRreporting.mp4" type="video/mp4">
         </video>
     </div>
-    <div id="downarrow" class="flex justify-center absolute bottom-0 w-full cursor-pointer hover:bg-gray-50">
+
+    <div id="downarrow" class="flex justify-center absolute bottom-0 w-full cursor-pointer hover:bg-gray-50 2xl:flex hidden">
         <svg class="my-2"
         fill="#c0bfbc" height="60px" width="60px" viewBox="0 0 493.46 493.46">
             <path d="M246.732,0C110.684,0,0.004,110.684,0.004,246.744c0,136.04,110.68,246.716,246.728,246.716 s246.724-110.676,246.724-246.716C493.456,110.684,382.78,0,246.732,0z M361.08,220.372L250.936,330.516 c-0.996,0.992-2.328,1.412-3.764,1.412l-0.124,3.744l0.052-4.108h-0.012h-0.156c-1.44,0-2.772-0.304-3.768-1.296L132.848,220.08 c-2.08-2.076-2.08-5.4,0-7.492l8.972-8.948c2.004-1.988,5.556-1.976,7.56,0.016l94.936,94.956c1.444,1.448,4.016,1.448,5.46,0 l94.768-94.776c2.012-2.012,5.56-2.012,7.576,0l8.96,8.98C363.164,214.896,363.164,218.284,361.08,220.372z" />
@@ -55,17 +65,52 @@
 
 
 <!-- Bottom view -->
-<div class="flex h-screen justify-center items-center">
-    <video hidden width="1920" height="1080" controls>
+<div class="flex 2xl:h-screen justify-center items-center">
+    <video width="1920" height="1080" controls preload="metadata">
         <source src="1080p_v2.mp4" type="video/mp4">
     </video>
 </div>
 
 <script>
-    $(document).ready(() => {
+    let g_autoroll = true // accordion autoroll (<> repeat selected video)
 
+    {
+        const checkViewportWidth = () => {
+            let targetWidth = 1920 / window.devicePixelRatio
+            if (window.innerWidth < targetWidth) {
+                $("video").each((_index, video) => {
+                    $(video).css({
+                        "width": "100vw",
+                        "height": "auto",
+                        /* remove them basically */
+                        "min-width": "",
+                        "max-width": "",
+                        "min-height": "",
+                        "max-height": "",
+                    })
+                })
+            }
+            else {
+                $("video").each((_index, video) => {
+                    $(video).css({
+                        "min-width": `${$(video).attr("width") / window.devicePixelRatio}`,
+                        "max-width": `${$(video).attr("width") / window.devicePixelRatio}`,
+                        "min-height": `${$(video).attr("height") / window.devicePixelRatio}`,
+                        "max-height": `${$(video).attr("height") / window.devicePixelRatio}`,
+                        /* remove them basically */
+                        "width": "",
+                        "height": "",
+                    })
+                })
+            }
+        }
+        window.addEventListener("resize", checkViewportWidth)
+        checkViewportWidth() // initial call
+    }
+
+    $(document).ready(() => {
         $("ul").each((_index, ul) => {
-            $(ul).on("click", "h1", event => {
+            $(ul).on("click", "h1", (event, my_context) => {
                 let h1 = event.currentTarget
 
                 /* early exit if already expanded */
@@ -73,15 +118,63 @@
                     return // nothing to do
                 }
 
-                /* first, we collapse all paragraphs */
-                $(ul).find("h1").each((_index, h1) => $(h1).removeClass("font-bold"))
-                $(ul).find("p").each((_index, p) => $(p).animate({height: "hide", opacity: "hide"}, 300))
+                if (my_context !== "from autoroll") {
+                    g_autoroll = false // disable autoroll permanently
+                }
 
-                /* then, we expand the one clicked */
-                $(h1)
-                    .addClass("font-bold")
-                    .next() /* <p> */
-                    .animate({height: "show", opacity: "show"}, 300)
+                /* handle video */
+                {
+                    let videos = $(ul).parent().find("video")
+
+                    /* first, we hide&pause all videos */
+                    $(videos).each((_index, video) => {
+                        $(video).hide()
+                        video.pause()
+                    })
+
+                    /* then,  we play&show the appropriate video */
+                    let index = Number($(h1).attr("name"))
+                    videos[index].currentTime = 0 // should we ?
+                    videos[index].play()
+                    $(videos[index]).show()
+                }
+
+                /* handle accordion menu item */
+                {
+                    /* first, we collapse all paragraphs */
+                    $(ul).find("h1").each((_index, h1) => $(h1).removeClass("font-bold"))
+                    $(ul).find("p").each((_index, p) => $(p).animate({height: "hide", opacity: "hide"}, 300))
+
+                    /* then, we expand the one clicked */
+                    $(h1)
+                        .addClass("font-bold")
+                        .next() /* <p> */
+                        .animate({height: "show", opacity: "show"}, 300)
+                }
+            })
+        })
+
+        $("#landing_view").find("video").each((_index, video) => {
+            $(video).on("ended", (event) => {
+                let video = event.currentTarget
+                if (g_autoroll) {
+                    /* plays the next one (or go back to first)..
+                    ..and select corresponding accordion item*/
+                    let videos = $(video).parent().find("video")
+                    let nextIndex = (Number($(video).attr("name")) + 1) % videos.length
+                    let nextVideo = videos[nextIndex]
+                    let nextH1 = $(video).parent().find("h1")[nextIndex]
+                    $(video).hide()
+                    $(nextVideo).show()
+                    $(nextH1).trigger("click", /*my_context*/["from autoroll"])
+                    // nextVideo.load() // ugly blank
+                    nextVideo.play()
+                }
+                else {
+                    /* repeat itself */
+                    // video.load() // ugly blank
+                    video.play()
+                }
             })
         })
 
@@ -90,28 +183,5 @@
                 scrollTop: $(window).height()
             }, 1000)
         })
-
-        /* perpetually add event listener for device pixel ratio */
-        {
-            let removeOld = null
-            const bypassDevicePixelRatio = () => {
-                removeOld?.()
-                let media = matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
-                media.addEventListener("change", bypassDevicePixelRatio)
-                removeOld = () => media.removeEventListener("change", bypassDevicePixelRatio)
-
-                $("video").each((_index, video) => {
-                    $(video)
-                        .css({
-                            "min-width": `${$(video).attr("width") / window.devicePixelRatio}`,
-                            "max-width": `${$(video).attr("width") / window.devicePixelRatio}`,
-                            "min-height": `${$(video).attr("height") / window.devicePixelRatio}`,
-                            "max-height": `${$(video).attr("height") / window.devicePixelRatio}`,
-                        })
-                        .show()
-                })
-            }
-            bypassDevicePixelRatio()
-        }
     })
 </script>
