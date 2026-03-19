@@ -77,11 +77,20 @@
 
 <script>
     let g_autoroll = true // accordion autoroll (<> repeat selected video)
+    let g_isSmartphone
+
+    /* check if smartphone */
+    {
+        let width = window.screen.width
+        let height = window.screen.height
+        let aspectRatio = width / height
+        g_isSmartphone = aspectRatio < 1
+    }
 
     {
         const checkViewportWidth = () => {
             let targetWidth = 1920 / window.devicePixelRatio
-            if (window.innerWidth < targetWidth) {
+            if (g_isSmartphone || window.innerWidth < targetWidth) {
                 $("video, iframe").each((_index, video) => {
                     $(video).css({
                         "width": "100vw",
