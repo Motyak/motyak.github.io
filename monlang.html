@@ -78,18 +78,24 @@
 <script>
     let g_autoroll = true // accordion autoroll (<> repeat selected video)
     let g_isSmartphone
+    let g_is1920x1080
 
-    /* check if smartphone */
+    /* check screen type */
     {
-        let width = window.screen.width
-        let height = window.screen.height
+        let width = window.screen.width * window.devicePixelRatio
+        let height = window.screen.height * window.devicePixelRatio
         let aspectRatio = width / height
+
         g_isSmartphone = aspectRatio < 1
+        g_is1920x1080 = width == 1920 && height == 1080
     }
 
     {
         const checkViewportWidth = () => {
             let targetWidth = 1920 / window.devicePixelRatio
+            if (g_is1920x1080) {
+                targetWidth = 1600 / window.devicePixelRatio
+            }
             if (g_isSmartphone || window.innerWidth < targetWidth) {
                 $("video, iframe").each((_index, video) => {
                     $(video).css({
@@ -121,6 +127,17 @@
                 })
             }
         }
+
+        if (g_is1920x1080) {
+            $("video").each((_index, video) => {
+                $(video)
+                    .attr("width", 1280)
+                    .attr("height", 720)
+            })
+            $("iframe").attr("width", 1600)
+
+        }
+
         window.addEventListener("resize", checkViewportWidth)
         checkViewportWidth() // initial call
     }
@@ -171,7 +188,7 @@
             })
         })
 
-        $("#landing_view").find("video").each((_index, video) => {
+        $("video").each((_index, video) => {
             $(video).on("ended", (event) => {
                 let video = event.currentTarget
                 if (g_autoroll) {
