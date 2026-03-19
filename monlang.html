@@ -5,7 +5,13 @@
     video, iframe {
         border-radius: 15px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-        margin: 20px;
+
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        aspect-ratio: 16/9;
     }
 </style>
 
@@ -66,7 +72,7 @@
 
 <!-- Bottom view -->
 <div class="flex 2xl:h-screen justify-center items-center">
-    <iframe width="1920" height="1080" src="https://www.youtube.com/embed/U5sQh-WSh1s?vq=hd1440" title="Monlang | Quick demo of my programming language and editor" frameborder="0" allowfullscreen></iframe>
+    <iframe width="1920" src="https://www.youtube.com/embed/U5sQh-WSh1s?vq=hd1440" title="Monlang | Quick demo of my programming language and editor" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <script>
@@ -80,6 +86,8 @@
                     $(video).css({
                         "width": "100vw",
                         "height": "auto",
+                        "margin-left": "0px",
+                        "margin-right": "0px",
                         /* remove them basically */
                         "min-width": "",
                         "max-width": "",
@@ -95,6 +103,8 @@
                         "max-width": `${$(video).attr("width") / window.devicePixelRatio}`,
                         "min-height": `${$(video).attr("height") / window.devicePixelRatio}`,
                         "max-height": `${$(video).attr("height") / window.devicePixelRatio}`,
+                        "margin-left": "20px",
+                        "margin-right": "20px",
                         /* remove them basically */
                         "width": "",
                         "height": "",
