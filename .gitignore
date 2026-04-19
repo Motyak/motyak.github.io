@@ -1,2 +1,6 @@
 monlang_archive/
 demo.mp4
+
+build/
+.vscode
+.deps
