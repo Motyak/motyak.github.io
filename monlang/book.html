@@ -1,0 +1,157 @@
+<html><head><title>book</title>
+
+</head><body>
+
+<h1 id="LV1"><a href="#LV1" class="sectionlink">§</a>=== LV1 ===</h1>
+<pre>PROGRAM := PROGRAM-SENTENCE*
+
+---
+
+PROGRAM-SENTENCE := &lt;indentation&gt; (PROGRAM-WORD (SPACE PROGRAM-WORD)*)? NEWLINE
+
+TERM := WORD (SPACE WORD)*
+
+---
+
+PROGRAM-WORD = WORD
+
+WORD := ASSOCIATION
+      | PATH
+      | POSTFIX-PARENTHESES-GROUP | POSTFIX-SQUARE-BRACKETS-GROUP
+      | CURLY-BRACKETS-GROUP | PARENTHESES-GROUP | SQUARE-BRACKETS-GROUP
+      | MULTILINE-SQUARE-BRACKETS-GROUP
+      | QUOTATION
+      | ATOM
+
+---
+
+ASSOCIATION := {WORD - ASSOCIATION} ':' WORD
+
+POSTFIX-PARENTHESES-GROUP := {WORD - ASSOCIATION} PARENTHESES-GROUP
+
+POSTFIX-SQUARE-BRACKETS-GROUP := {WORD - ASSOCIATION} SQUARE-BRACKETS-GROUP '!'|'?'|''
+
+PATH := {WORD - ASSOCIATION} '.' ATOM
+
+
+CURLY-BRACKETS-GROUP := ('{' TERM? '}')
+                      | ('{' NEWLINE PROGRAM-SENTENCE+ &lt;indentation&gt; '}')
+
+PARENTHESES-GROUP := '(' (TERM (',' SPACE TERM)*)? ')'
+
+SQUARE-BRACKETS-GROUP := '[' (TERM (',' SPACE TERM)*)? ']'
+
+MULTILINE-SQUARE-BRACKETS-GROUP := '[' NEWLINE PROGRAM-SENTENCE+ &lt;indentation&gt; ']'
+
+
+QUOTATION := ('"' QUOTED-LINE? '"')
+           | ('```' (NEWLINE &lt;indentation&gt; QUOTED-LINE?)+ NEWLINE &lt;indentation&gt; '```'):
+
+ATOM -- fall-through
+</pre>
+
+<h1 id="LV2"><a href="#LV2" class="sectionlink">§</a>=== LV2 ===</h1>
+<pre>Program (Program)
+Statement (ProgramSentence)
+Expression (Term)
+
+--- Statements
+
+Assignment (ProgramSentence&lt;Word := Term&gt;)
+Accumulation (ProgramSentence&lt;Word += Term&gt;)
+
+VarStatement (ProgramSentence&lt;var Atom Term&gt;)
+LetStatement (ProgramSentence&lt;let Atom Word&gt;)
+
+ExpressionStatement (ProgramSentence&lt;.*&gt;)
+
+--- Expressions
+
+Operation (Term)
+BlockExpression (CBG)
+Numeral (Atom&lt;[0-9]+&gt;)
+SpecialSymbol (Atom&lt;$.*&gt;)
+Symbol (Atom&lt;.+&gt;)
+StrLiteral (Quotation)
+ListLiteral (SBG&lt;Term*&gt;)
+MapLiteral (SBG&lt;Assoc&lt;Word,Word&gt;*&gt;)
+FunctionCall (PPG&lt;Term*&gt;)
+Subscript (PSBG&lt;Term&gt;)
+Lambda (Assoc&lt;PG&lt;Atom&lt;.+&gt;*&gt;,CBG&gt;)
+</pre>
+<div class="img-breakout"><img src="img/LV2ast.svg" alt="<img/LV2ast.svg>"></div>
+
+<h1 id="ideas_from_sicp"><a href="#ideas_from_sicp" class="sectionlink">§</a>=== Ideas from SICP ===</h1>
+<pre>ideas from SICP :
+
+- closures can be used to implement objects
+  
+- loops = if..else + recursive tail call elimination
+    -&gt; _ := loop()
+
+- normal order evaluation can be used to implement
+  if..else statements
+    -&gt; &amp;&amp;(), ||(), tern(), !tern(), CaseAnalysis()
+
+That way, a program in that language
+is only composed of expressions and
+binding of symbols to expressions in an environment.
+</pre>
+
+
+<style>
+    html {
+        background-color: #e7e7e7;
+    }
+
+    body {
+        max-width: 50em;
+        padding: .5em 2em 1em 2em;
+        margin: 0 auto 2em;
+        font-size: 16px;
+        color: black;
+        background-color: white;
+        border: .1em solid #c0c0c0;
+    }
+
+    .link {
+        text-decoration: none;
+    }
+    .link:link {
+        color: #005090;
+    }
+    .link:hover, .link:visited {
+        color: #100070;
+    }
+
+    .img-breakout {
+        width:100vw;
+        margin-left: calc(50% - 50vw);
+        display:flex;
+        justify-content:center;
+    }
+
+    .sectionlink, .sectionlink:visited, .sectionlink:hover {
+        opacity: 0;
+        text-decoration: none;
+        color: gray;
+        user-select: none;
+        position: absolute;
+        transform: translateX(-1.55rem) translateY(-0.13rem);
+    }
+    h1:hover .sectionlink,
+    h1:focus-within .sectionlink {
+        opacity: 1;
+    }
+
+    h1 {
+        line-height: 1;
+        /* for the sectionlink (§) */
+        padding-left: 1.55rem;
+        transform: translateX(-1.55rem);
+    }
+</style>
+
+
+
+</body></html>
