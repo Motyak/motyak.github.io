@@ -6,3 +6,4 @@ demo.mp4
 build/node_modules
 build/package-lock.json
 monlang/*.html
+monlang/*.txt
