@@ -1,0 +1,14 @@
+<script src="./jquery-3.7.1.min.js"></script>
+
+<script>
+$("h1").each((_index, element) => {
+    let id = $(element).attr("id")
+    $(element).prepend(`<a href="#${id}" class="sectionlink">§</a>`)
+})
+
+$("img").each((_index, element) => {
+    let src = $(element).attr("src")
+    $(element).attr("alt", `<${src}>`)
+    $(element).wrap(`<div class="img-breakout"></div>`)
+})
+</script>

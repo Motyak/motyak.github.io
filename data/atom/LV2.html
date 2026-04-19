@@ -1,0 +1,29 @@
+<pre>
+Program (Program)
+Statement (ProgramSentence)
+Expression (Term)
+
+--- Statements
+
+Assignment (ProgramSentence<Word := Term>)
+Accumulation (ProgramSentence<Word += Term>)
+
+VarStatement (ProgramSentence<var Atom Term>)
+LetStatement (ProgramSentence<let Atom Word>)
+
+ExpressionStatement (ProgramSentence<.*>)
+
+--- Expressions
+
+Operation (Term)
+BlockExpression (CBG)
+Numeral (Atom<[0-9]+>)
+SpecialSymbol (Atom<$.*>)
+Symbol (Atom<.+>)
+StrLiteral (Quotation)
+ListLiteral (SBG<Term*>)
+MapLiteral (SBG<Assoc<Word,Word>*>)
+FunctionCall (PPG<Term*>)
+Subscript (PSBG<Term>)
+Lambda (Assoc<PG<Atom<.+>*>,CBG>)
+</pre>
