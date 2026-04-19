@@ -12,7 +12,7 @@ function include_pre($path) {
     echo $str;
 }
 
-set_include_path(get_include_path() . realpath(".") . ":"); // so we can use build/xxx
+set_include_path(get_include_path() . realpath(".") . ":"); // so we can use data/xxx build/yyy
 chdir("data");
 include("{$argv[1]}");
 include("build/style.html");
