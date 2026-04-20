@@ -11,13 +11,13 @@ BOOK_DEPS := $(BOOKS:%=.deps/%.d)
 .PHONY: all
 all: $(HTML_BOOKS) $(TXT_BOOKS)
 
-$(HTML_BOOKS): monlang/%.html: data/book/%.php .deps/%.d build/node_modules
+$(HTML_BOOKS): monlang/%.html: data/book/%.php .deps/%.d build/node_modules build/preprocess.php build/preprocess.js
 	build/preprocess.php $< | build/preprocess.js > $@
 
-$(TXT_BOOKS): monlang/%.txt: data/book/%.php .deps/%.d build/node_modules
+$(TXT_BOOKS): monlang/%.txt: data/book/%.php .deps/%.d build/node_modules build/preprocess.php build/preprocess.js
 	build/preprocess.php $< | build/to_text.js > $@
 
-$(BOOK_DEPS): .deps/%.d: data/book/%.php
+$(BOOK_DEPS): .deps/%.d: data/book/%.php build/get_deps.php
 	php build/get_deps.php $< > $@
 
 build/node_modules: build/package.json
