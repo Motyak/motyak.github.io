@@ -1,6 +1,10 @@
 <script src="./jquery-3.7.1.min.js"></script>
 
 <script>
+$("body")
+    .prepend('<a href="contents.html" class="toc-link">Table of Contents</a>')
+    .append('<a href="contents.html" class="toc-link">Table of Contents</a>')
+
 $("h1").each((_index, element) => {
     let id = $(element).attr("id")
     $(element).prepend(`<a href="#${id}" class="sectionlink">§</a>`)

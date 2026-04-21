@@ -1,6 +1,14 @@
 #!/usr/bin/env -S php -f
 <?php
 
+set_include_path(get_include_path() . realpath(".") . ":"); // so we can use data/xxx build/yyy
+
+if ($argv[1] == "data/book/contents.php") {
+    include("{$argv[1]}");
+    include("build/style.html");
+    exit;
+}
+
 function include_pre($path) {
     $str = file_get_contents($path);
     # escape '%', '<' and '>'
@@ -12,7 +20,6 @@ function include_pre($path) {
     echo $str;
 }
 
-set_include_path(get_include_path() . realpath(".") . ":"); // so we can use data/xxx build/yyy
 chdir("data");
 include("{$argv[1]}");
 include("build/style.html");

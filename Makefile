@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -o errexit -o pipefail -c
 
-BOOKS := book
+BOOKS := book contents
 
 HTML_BOOKS := $(BOOKS:%=monlang/%.html)
 TXT_BOOKS := $(BOOKS:%=monlang/%.txt)
@@ -14,7 +14,7 @@ all: $(HTML_BOOKS) $(TXT_BOOKS)
 $(HTML_BOOKS): monlang/%.html: data/book/%.php .deps/%.d build/node_modules build/preprocess.php build/preprocess.js
 	build/preprocess.php $< | build/preprocess.js > $@
 
-$(TXT_BOOKS): monlang/%.txt: data/book/%.php .deps/%.d build/node_modules build/preprocess.php build/preprocess.js
+$(TXT_BOOKS): monlang/%.txt: data/book/%.php .deps/%.d build/node_modules build/preprocess.php build/to_text.js
 	build/preprocess.php $< | build/to_text.js > $@
 
 $(BOOK_DEPS): .deps/%.d: data/book/%.php build/get_deps.php

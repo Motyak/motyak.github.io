@@ -22,8 +22,9 @@ dom.window.addEventListener("load", () => {
     let styles = window.document.querySelectorAll("style")
     styles.forEach(style => style.remove())
     let text = window.document.body.textContent
-            .replace(/\n\s*\n/g, "\n\n")
+            .replace(/\n{4,}/g, "\n\n\n")
             .replace(/^§(=== .+ ===\n)/gm, "$1\n")
+            .split("\n").slice(1, -1).join("\n") // remove `Table of Contents`
     process.stdout.write(text)
     process.exit(0)
 })
