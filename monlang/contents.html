@@ -1,0 +1,67 @@
+<html><head><title>Table of Contents</title>
+
+</head><body>
+
+<h1>=== TABLE OF CONTENTS ===</h1>
+
+<li>book [<a href="book.html">html</a>][<a href="book.txt">txt</a>]</li>
+<li>contents [<a href="contents.html">html</a>][<a href="contents.txt">txt</a>]</li>
+
+
+<style>
+    html {
+        background-color: #e7e7e7;
+    }
+
+    body {
+        max-width: 50em;
+        padding: .5em 2em 1em 2em;
+        margin: 0 auto 2em;
+        font-size: 16px;
+        color: black;
+        background-color: white;
+        border: .1em solid #c0c0c0;
+    }
+
+    .link {
+        text-decoration: none;
+    }
+    .link:link {
+        color: #005090;
+    }
+    .link:hover, .link:visited {
+        color: #100070;
+    }
+
+    .img-breakout {
+        display: flex;
+        justify-content: center;
+    }
+
+    .sectionlink, .sectionlink:visited, .sectionlink:hover {
+        opacity: 0;
+        text-decoration: none;
+        color: gray;
+        user-select: none;
+        position: absolute;
+        transform: translateX(-1.55rem) translateY(-0.13rem);
+    }
+    h1:hover .sectionlink,
+    h1:focus-within .sectionlink {
+        opacity: 1;
+    }
+
+    h1 {
+        line-height: 1;
+        /* for the sectionlink (§) */
+        padding-left: 1.55rem;
+        transform: translateX(-1.55rem);
+    }
+
+    .toc-link {
+        display: flex;
+        justify-content: center;
+        user-select: none;
+    }
+</style>
+</body></html>
