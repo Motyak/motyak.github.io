@@ -1,0 +1,44 @@
+
+Precedence table :
+(extracted from monlang-parser/monlang-LV2/src/precedence.cpp)
+
+/* ordered from highest precedence to lowest */
+{{"**"}, RIGHT_ASSOCIATIVE},
+{{"*", "/", "//", "%"}, LEFT_ASSOCIATIVE},
+{{"+", "-"}, LEFT_ASSOCIATIVE},
+{{"<<", ">>"}, LEFT_ASSOCIATIVE},
+{{"&"}, LEFT_ASSOCIATIVE},
+{{"^"}, LEFT_ASSOCIATIVE},
+{{"|"}, LEFT_ASSOCIATIVE},
+{{".."}, LEFT_ASSOCIATIVE},
+{{"<", "<=", ">", ">=", "in", "!in", "is", "not"}, LEFT_ASSOCIATIVE},
+{{"==", "<>"}, LEFT_ASSOCIATIVE},
+{{"&&"}, LEFT_ASSOCIATIVE},
+{{"||"}, LEFT_ASSOCIATIVE},
+{{"|>"}, LEFT_ASSOCIATIVE},
+
+
+Memo:
+
+BINARY OPERATORS
+==================
+{arithmetic ops}
+{bitwise ops}
+=== predicates ===
+{relational tests}
+{eq tests}
+{test combinators}
+==================
+
+var >= (a, b):{
+    a > b || a == b
+}
+
+var <= (a, b):{
+    a > b == $false
+}
+
+var <> (a, b):{
+    a == b == $false
+}
+
