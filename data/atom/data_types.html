@@ -1,0 +1,23 @@
+<pre>
+numerals can be used to construct values of different types
+  (not neccessarily numbers)
+
+123 -- same as Int(123)
+Float(123) -- same as 123.0 or 123/1 ..
+Char(123) -- same as Char("{")
+Byte(-1) -- same as Byte(255)
+Bool(123) -- $true
+
+Str() can serialize any value as text
+  (same as print() but stores the value instead)
+
+"some text" -- same as Str("some text")
+Str(123) -- "123"
+Str(2^5) -- "32"
+Str(-1/3) -- "-0.333333333333333"
+Str(-0.0) -- "0"
+Str(3/3) -- "1"
+Str(List()) -- "[]"
+Str(Map()) -- "[:]"
+Str(():{}) -- "<lambda>"
+</pre>

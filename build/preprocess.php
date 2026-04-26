@@ -3,7 +3,7 @@
 
 set_include_path(get_include_path() . realpath(".") . ":"); // so we can use data/xxx build/yyy
 
-if ($argv[1] == "data/book/contents.php") {
+if ($argv[1] == "data/book/_contents.php") {
     include("{$argv[1]}");
     include("build/style.html");
     exit;

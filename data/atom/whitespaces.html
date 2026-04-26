@@ -1,0 +1,28 @@
+<pre>
+12 8 <> 128
+0 x 10 <> 0x10
+in line <> inline
+as sign <> assign
+count-1 <> count - 1
+buffer-size <> buffer - size
+foreach(x) <> foreach (x)
+
+---
+
+- Whitespaces play a huge role in affecting
+  a meaning to a sentence (for both humans
+  and compilers):
+    -> 12 8 <> 128
+    -> in line <> inline
+    -> as sign <> assign
+
+- what looks like a symbol should be a symbol,
+  what looks like an operation should be an operation,
+  and what looks like a number should be a number :
+    -> buffer-size <> buffer - size
+    -> 0 x 10 <> 0x10
+
+- what looks like a function should be a function,
+  and what looks like a statement should be a statement :
+    -> foreach(x) <> foreach (x)
+</pre>

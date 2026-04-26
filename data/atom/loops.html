@@ -1,0 +1,72 @@
+<pre>
+The skeleton of a loop is the following:
+
+var loop _
+loop := ():{
+    ; A
+    cond || {
+        ; B
+        _ := loop()
+    }
+    ; C
+}
+loop()
+
+Here "cond ||" correspond to an "until" loop,
+on the other hand "cond &&" would have
+corresponded to a "while" loop.
+
+The code in A gets executed before checking
+the condition
+  -> more on this later on
+
+The code in B gets executed if the cond is $false
+(||) or if the condition is $true (&&)
+
+The code in C gets executed exactly one time,
+when exiting the loop (because _ := loop()
+shortcircuits the rest of the block)
+  -> you rarely need this, maybe for resetting a count
+     variable in order to make the loop re-entrant ?
+
+So if you want to simulate a do..while,
+you use cond && and put nothing in B.
+
+If you want to simulate a until loop,
+you use cond || and put nothing in A,
+unless you need to re-evaluate the condition,
+in that case you do that in A.
+Which is the equivalent of doing this in C++:
+while (std::getline(std::cin, line), !std::cin) {
+    // do something with line
+}
+Here we need to FIRST get the line BEFORE checking if
+STDIN is EOF.
+
+---
+
+This skeleton is what provides the more flexibility,
+but most general cases are covered by std/ functions
+while(cond, do), until(cond, do), do_while(do, cond)
+and do_until(do, cond).
+  -> cases where you don't care about A and C.
+
+e.g.:
+
+{
+    var loop _
+    loop := ():{
+        i == 10 || {
+            ; doit()
+            _ := loop()
+        }
+    }
+    loop()
+}
+
+can be reduced to
+
+until(():{i == 10}, ():{
+    ; doit()
+})
+</pre>

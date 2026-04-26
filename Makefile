@@ -2,8 +2,9 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -o errexit -o pipefail -c
 
-BOOKS := book contents
+BOOKS := _contents book expressions lexical_scope loops precedence
 
+PHP_BOOKS := $(BOOKS:%=data/book/%.php)
 HTML_BOOKS := $(BOOKS:%=monlang/%.html)
 TXT_BOOKS := $(BOOKS:%=monlang/%.txt)
 BOOK_DEPS := $(BOOKS:%=.deps/%.d)
