@@ -1,0 +1,67 @@
+
+TL;DR
+Basically, to resolve a symbol we look up in the program
+(which is similar to looking up the nested environments
+from the interpreter's perspective) until we find the defined symbol.
+If we don't, and if it's not a builtin symbol, then the symbol is unfound.
+This rule is called lexical scoping <> dynamic scoping.
+
+---
+
+Any variable you define is accessible starting from the line after
+and until the end of the block (or the end of the program)
+
+{
+    var x 123
+    print(x) -- 123
+}
+print(x) -- ERR: unbound symbol `x`
+
+
+Names don't collide unless they are defined within the same
+block.
+
+var x 123
+{
+    print(x) -- 123
+    var x 777
+    print(x) -- 777
+}
+print(x) -- 123
+
+
+{var x 123} -- variable inaccessible for ever
+
+
+Lambda parameters act as local variables in the body.
+
+(x):{
+    var x 123 -- ERR: redefinition of symbol `x`
+}
+
+
+Lambdas can access variables from outside.
+
+var x 123
+var fn ():{
+    print(x)
+}
+fn() -- 123
+print(x) -- 123
+
+
+To be more precise:
+A lambda's body remembers all its parent environments at the time
+the lambda was evaluated (not called), and symbols defined in
+these are therefore accessible when the lambda gets called.
+
+var x 123
+var fn {
+    var x 777
+    ():{
+        print(x)
+    }
+}
+fn() -- 777
+print(x) -- 123
+

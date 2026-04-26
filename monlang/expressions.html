@@ -1,0 +1,150 @@
+<html><head><title>Expressions</title>
+
+</head><body><a href="_contents.html" class="toc-link">Table of Contents</a>
+
+<pre>Monlang syntax is mostly composed of expressions,
+which the interpreter can evaluate for a value
+</pre>
+
+<div class="img-breakout"><img src="img/LV2ast.svg" alt="<img/LV2ast.svg>"></div>
+
+<pre>Here are all kinds of expression we can write in Monlang:
+
+
+primitive expressions:
+
+fncall()
+fncall(arg)
+fncall(arg1, arg2)
+():{'someval}
+(x):{x}
+(_, _):{}
+arr[#nth]
+arr[#from..to]
+arr[#from..&lt;excluded]
+map[key]
+[]
+[1]
+[1, 2]
+[:]
+['a:1]
+['a:1, 'b:2]
+'a
+"a quoted sentence"
+```
+    we can quote
+    multiple lines
+```
+""
+123
+0xFF
+0o777
+0b101'1011
+-123.456(789)
+0.456
+789/999'000
+0.'(3)
+3.14
+2^3
+$true
+$false
+$nil
+somevar
+
+
+operation:
+
+- built from two expressions
+- makes an expression grow horizontally
+- order of evaluation determined by
+  precedence and associativity rules
+- the use of parentheses may change the order
+  of evaluation
+
+1 + 2
+1 + 2 + 3
+1 + 2 * 3
+(1 + 2) * 3
+(2 ** 3) ** 2
+[2, 4, 6] |&gt; map(times2)
+5 in 1 .. 10 || ERR("somethin' wrong")
+
+
+block expression:
+
+- built from statements
+- makes an expression grow vertically
+- as within a Program, statements are evaluated
+  from top to bottom
+- the trailing statement, if producing a value,
+  is used to return as the final result
+  of the all block expression
+
+{
+    var a 1 + 2
+    var b 3
+    a * b
+}
+</pre>
+
+
+<style>
+    html {
+        background-color: #e7e7e7;
+    }
+
+    body {
+        max-width: 50em;
+        padding: .5em 2em 1em 2em;
+        margin: 0 auto 2em;
+        font-size: 16px;
+        color: black;
+        background-color: white;
+        border: .1em solid #c0c0c0;
+    }
+
+    .link {
+        text-decoration: none;
+    }
+    .link:link {
+        color: #005090;
+    }
+    .link:hover, .link:visited {
+        color: #100070;
+    }
+
+    .img-breakout {
+        display: flex;
+        justify-content: center;
+    }
+
+    .sectionlink, .sectionlink:visited, .sectionlink:hover {
+        opacity: 0;
+        text-decoration: none;
+        color: gray;
+        user-select: none;
+        position: absolute;
+        transform: translateX(-1.55rem) translateY(-0.13rem);
+    }
+    h1:hover .sectionlink,
+    h1:focus-within .sectionlink {
+        opacity: 1;
+    }
+
+    h1 {
+        line-height: 1;
+        /* for the sectionlink (§) */
+        padding-left: 1.55rem;
+        transform: translateX(-1.55rem);
+    }
+
+    .toc-link {
+        display: flex;
+        justify-content: center;
+        user-select: none;
+    }
+</style>
+
+
+
+<a href="_contents.html" class="toc-link">Table of Contents</a></body></html>

@@ -1,4 +1,4 @@
-<pre>
+
 Precedence table :
 (extracted from monlang-parser/monlang-LV2/src/precedence.cpp)
 
@@ -41,4 +41,4 @@ var <= (a, b):{
 var <> (a, b):{
     a == b == $false
 }
-</pre>
+
