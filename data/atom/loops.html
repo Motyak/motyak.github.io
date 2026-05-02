@@ -34,8 +34,8 @@ you use cond && and put nothing in B.
 
 If you want to simulate a until loop,
 you use cond || and put nothing in A,
-unless you need to re-evaluate the condition,
-in that case you do that in A.
+unless you need to re-evaluate an expression used
+in the condition, in that case you do that in A.
 Which is the equivalent of doing this in C++:
 while (std::getline(std::cin, line), !std::cin) {
     // do something with line
