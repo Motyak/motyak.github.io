@@ -41,7 +41,7 @@ MULTILINE-SQUARE-BRACKETS-GROUP := '[' NEWLINE PROGRAM-SENTENCE+ <indentation> '
 
 
 QUOTATION := ('"' QUOTED-LINE? '"')
-           | ('```' (NEWLINE <indentation> QUOTED-LINE?)+ NEWLINE <indentation> '```'):
+           | ('```' (NEWLINE (<indentation> QUOTED-LINE?)?)+ NEWLINE <indentation> '```')
 
 ATOM -- fall-through
 </pre>

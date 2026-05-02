@@ -11,11 +11,11 @@ Accumulation (ProgramSentence<Word += Term>)
 VarStatement (ProgramSentence<var Atom Term>)
 LetStatement (ProgramSentence<let Atom Word>)
 
-ExpressionStatement (ProgramSentence<.*>)
+ExpressionStatement (ProgramSentence)
 
 --- Expressions
 
-Operation (Term)
+Operation (Term<Word Word Word+>)
 BlockExpression (CBG)
 Numeral (Atom<[0-9]+>)
 SpecialSymbol (Atom<$.*>)
