@@ -45,7 +45,7 @@ MULTILINE-SQUARE-BRACKETS-GROUP := '[' NEWLINE PROGRAM-SENTENCE+ &lt;indentation
 
 
 QUOTATION := ('"' QUOTED-LINE? '"')
-           | ('```' (NEWLINE &lt;indentation&gt; QUOTED-LINE?)+ NEWLINE &lt;indentation&gt; '```'):
+           | ('```' (NEWLINE (&lt;indentation&gt; QUOTED-LINE?)?)+ NEWLINE &lt;indentation&gt; '```')
 
 ATOM -- fall-through
 </pre>
@@ -63,11 +63,11 @@ Accumulation (ProgramSentence&lt;Word += Term&gt;)
 VarStatement (ProgramSentence&lt;var Atom Term&gt;)
 LetStatement (ProgramSentence&lt;let Atom Word&gt;)
 
-ExpressionStatement (ProgramSentence&lt;.*&gt;)
+ExpressionStatement (ProgramSentence)
 
 --- Expressions
 
-Operation (Term)
+Operation (Term&lt;Word Word Word+&gt;)
 BlockExpression (CBG)
 Numeral (Atom&lt;[0-9]+&gt;)
 SpecialSymbol (Atom&lt;$.*&gt;)
