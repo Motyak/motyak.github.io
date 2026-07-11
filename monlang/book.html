@@ -29,7 +29,7 @@ ASSOCIATION := {WORD - ASSOCIATION} ':' WORD
 
 POSTFIX-PARENTHESES-GROUP := {WORD - ASSOCIATION} PARENTHESES-GROUP
 
-POSTFIX-SQUARE-BRACKETS-GROUP := {WORD - ASSOCIATION} SQUARE-BRACKETS-GROUP '!'|'?'|''
+POSTFIX-SQUARE-BRACKETS-GROUP := {WORD - ASSOCIATION} SQUARE-BRACKETS-GROUP ('!'|'?'|'')
 
 PATH := {WORD - ASSOCIATION} '.' ATOM
 
@@ -67,7 +67,7 @@ ExpressionStatement (ProgramSentence)
 
 --- Expressions
 
-Operation (Term&lt;Word Word Word+&gt;)
+Operation (Term&lt;Word Atom Word&gt;)
 BlockExpression (CBG)
 Numeral (Atom&lt;[0-9]+&gt;)
 SpecialSymbol (Atom&lt;$.*&gt;)
